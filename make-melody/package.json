@@ -1,5 +1,26 @@
 {
-  "dependencies": {
+  "name": "make-melody",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "dependencies":{
     "abcjs": "^6.0.2"
-  }
+  },
+  "devDependencies": {
+    "@babel/core": "7.2.0",
+    "parcel": "^2.4.0",
+    "parcel-bundler": "^1.6.1"
+  },
+  "keywords": [
+      "javascript",
+      "starter"
+  ]
+ 
 }
