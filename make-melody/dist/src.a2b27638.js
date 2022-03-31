@@ -117,79 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"src/style.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/abcjs/version.js":[function(require,module,exports) {
+})({"node_modules/abcjs/version.js":[function(require,module,exports) {
 var version = '6.0.2';
 
 module.exports = version;
@@ -23198,7 +23126,85 @@ abcjs['EditArea'] = require('./src/edit/abc_editarea');
 
 module.exports = abcjs;
 
-},{"./version":"node_modules/abcjs/version.js","./src/api/abc_animation":"node_modules/abcjs/src/api/abc_animation.js","./src/api/abc_tunebook":"node_modules/abcjs/src/api/abc_tunebook.js","./src/synth/abc_midi_sequencer":"node_modules/abcjs/src/synth/abc_midi_sequencer.js","./src/api/abc_tunebook_svg":"node_modules/abcjs/src/api/abc_tunebook_svg.js","./src/api/abc_timing_callbacks":"node_modules/abcjs/src/api/abc_timing_callbacks.js","./src/write/abc_glyphs":"node_modules/abcjs/src/write/abc_glyphs.js","./src/synth/create-synth":"node_modules/abcjs/src/synth/create-synth.js","./src/synth/instrument-index-to-name":"node_modules/abcjs/src/synth/instrument-index-to-name.js","./src/synth/pitch-to-note-name":"node_modules/abcjs/src/synth/pitch-to-note-name.js","./src/synth/synth-sequence":"node_modules/abcjs/src/synth/synth-sequence.js","./src/synth/create-synth-control":"node_modules/abcjs/src/synth/create-synth-control.js","./src/synth/register-audio-context":"node_modules/abcjs/src/synth/register-audio-context.js","./src/synth/active-audio-context":"node_modules/abcjs/src/synth/active-audio-context.js","./src/synth/supports-audio":"node_modules/abcjs/src/synth/supports-audio.js","./src/synth/play-event":"node_modules/abcjs/src/synth/play-event.js","./src/synth/synth-controller":"node_modules/abcjs/src/synth/synth-controller.js","./src/synth/get-midi-file":"node_modules/abcjs/src/synth/get-midi-file.js","./src/edit/abc_editor":"node_modules/abcjs/src/edit/abc_editor.js","./src/edit/abc_editarea":"node_modules/abcjs/src/edit/abc_editarea.js"}],"src/index.js":[function(require,module,exports) {
+},{"./version":"node_modules/abcjs/version.js","./src/api/abc_animation":"node_modules/abcjs/src/api/abc_animation.js","./src/api/abc_tunebook":"node_modules/abcjs/src/api/abc_tunebook.js","./src/synth/abc_midi_sequencer":"node_modules/abcjs/src/synth/abc_midi_sequencer.js","./src/api/abc_tunebook_svg":"node_modules/abcjs/src/api/abc_tunebook_svg.js","./src/api/abc_timing_callbacks":"node_modules/abcjs/src/api/abc_timing_callbacks.js","./src/write/abc_glyphs":"node_modules/abcjs/src/write/abc_glyphs.js","./src/synth/create-synth":"node_modules/abcjs/src/synth/create-synth.js","./src/synth/instrument-index-to-name":"node_modules/abcjs/src/synth/instrument-index-to-name.js","./src/synth/pitch-to-note-name":"node_modules/abcjs/src/synth/pitch-to-note-name.js","./src/synth/synth-sequence":"node_modules/abcjs/src/synth/synth-sequence.js","./src/synth/create-synth-control":"node_modules/abcjs/src/synth/create-synth-control.js","./src/synth/register-audio-context":"node_modules/abcjs/src/synth/register-audio-context.js","./src/synth/active-audio-context":"node_modules/abcjs/src/synth/active-audio-context.js","./src/synth/supports-audio":"node_modules/abcjs/src/synth/supports-audio.js","./src/synth/play-event":"node_modules/abcjs/src/synth/play-event.js","./src/synth/synth-controller":"node_modules/abcjs/src/synth/synth-controller.js","./src/synth/get-midi-file":"node_modules/abcjs/src/synth/get-midi-file.js","./src/edit/abc_editor":"node_modules/abcjs/src/edit/abc_editor.js","./src/edit/abc_editarea":"node_modules/abcjs/src/edit/abc_editarea.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"src/style.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/abcjs/abcjs-audio.css":[function(require,module,exports) {
+
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+},{"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23207,9 +23213,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.connectBack = connectBack;
 exports.connectFront = connectFront;
 
+var _abcjs = _interopRequireDefault(require("abcjs"));
+
 require("./style.css");
 
-var _abcjs = _interopRequireDefault(require("abcjs"));
+require("../node_modules/abcjs/abcjs-audio.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23224,7 +23232,7 @@ for (var i = 0; i < 4; ++i) {
 str3 = example2[Math.floor(Math.random() * example2.length)]; // 여기서 함수를 만들어서 index.html에서 가져다가 쓸 수 있는건가?
 
 var myText = document.getElementById('editor');
-myText.value = 'X: 1 \n' + 'T: connecting \n' + 'M: 4/4 \n' + 'L: 1/8 \n' + 'K: Emin \n' + '|:' + str3 + '|' + str2 + '|'; // 멜로디를 이미지로 바꾸는 건 라이브러리에서 해줌. 
+myText.value = 'X: 1 \n' + 'T: setting \n' + 'M: 4/4 \n' + 'L: 1/8 \n' + 'K: Emin \n' + '|:' + str3 + '|' + str2 + '|'; // 멜로디를 이미지로 바꾸는 건 라이브러리에서 해줌. 
 // 그 이미지를 저장하는 것을 구현해야할 것 같고. 
 // 멜로디를 저장하는 것도 라이브러리에서 해주는 거 같은데 찾아서 구현해야함.
 // 결론은 abc.js를 더 파서 써봐야 한다는 것. 걍 자료형식으로 정리만 하면 될 것 같습니다. 명세서 정리하듯이.
@@ -23261,7 +23269,7 @@ function connectFront() {
   // window.location.reload();
   console.log("앞으로연결");
 }
-},{"./style.css":"src/style.css","abcjs":"node_modules/abcjs/index.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"abcjs":"node_modules/abcjs/index.js","./style.css":"src/style.css","../node_modules/abcjs/abcjs-audio.css":"node_modules/abcjs/abcjs-audio.css"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

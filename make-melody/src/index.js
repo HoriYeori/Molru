@@ -1,5 +1,7 @@
-import "./style.css";
 import abc from "abcjs";
+import "./style.css";
+import "../node_modules/abcjs/abcjs-audio.css";
+
 
 let str2 = "";
 let str3 = "";
@@ -13,7 +15,7 @@ str3 = example2[Math.floor(Math.random()*example2.length)];
 // 여기서 함수를 만들어서 index.html에서 가져다가 쓸 수 있는건가?
 
 var myText = document.getElementById('editor');
-myText.value = ('X: 1 \n' + 'T: connecting \n' + 
+myText.value = ('X: 1 \n' + 'T: setting \n' + 
               'M: 4/4 \n' + 'L: 1/8 \n' + 'K: Emin \n' + '|:' + str3 + '|' + str2 + '|');
 
 
