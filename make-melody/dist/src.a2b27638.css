@@ -15,7 +15,7 @@ textarea {
   min-height: 33vh;
 }
 
-button:nth-of-type(1):after {
+/* button:nth-of-type(1):after {
   display: absolute;
   content: "p";
 }
@@ -33,7 +33,7 @@ button:nth-of-type(3):after {
 button:nth-of-type(4):after {
   display: absolute;
   content: "end";
-}
+} */
 
 /* Some basic CSS to make the Audio controls in abcjs presentable. */
 

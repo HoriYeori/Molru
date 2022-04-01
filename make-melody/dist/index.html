@@ -3,38 +3,25 @@
   <head>
     <title>editing</title>
     <meta charset="UTF-8">
-    <!-- <script src="./src/index.js?ver=38" type="module">
-      //module
-      // document.getElementById("editor").click();
-      $("#editor").trigger("click");
-
-      
-    </script> -->
   <link rel="stylesheet" href="/src.a2b27638.css"></head>
 
   <body>
     <p>
-      <!-- <button id="gacha" onClick="window.location.reload()">새로 발급</button>
-      <button id="connect_back" onClick="javascript:connectBack">뒤 붙이기</button>
-      <button id="connect_front" onClick="javascript:connectFront">앞 붙이기</button>
-      <button id="flush_melody" onClick="">보유 멜로디 비우기</button>
-      <button id="check_melody" onClick="">보유 멜로디  </button> -->
-      <!-- getElementById에 addListener click 이런식으로 붙여가지고 사용한다 -->
+      <button id="gacha" onClick="window.location.reload()">새로 발급</button>
+      <button id="connect_back">뒤 붙이기</button>
+      <button id="connect_front">앞 붙이기</button>
+      <button id="flush_melody">보유 멜로디 비우기</button>
+      <button id="check_melody">보유 멜로디 확인</button>
     </p>
-    <textarea id="editor" cols="30" rows="5">
+    <textarea id="editor">
       <!-- 멜로디에 대한 정보 표시되는 부분 -->
     </textarea>
-
     <div id="controls"></div>
     <div id="warnings"></div>
     <div id="paper"></div>
 
-    <script src="/src.a2b27638.js?ver=45" type="module">
-      //module
-      // document.getElementById("editor").click();
-      $("#editor").trigger("click");1
-
-      
+    <script src="/src.a2b27638.js?ver=66" type="module">
+        // $("#editor").trigger("click");  //notation이 바로 그려지도록
     </script>
   </body>
 </html>
