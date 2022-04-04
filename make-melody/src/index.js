@@ -1,6 +1,6 @@
 import abcjs from "abcjs";
 import "./style.css";
-import 'abcjs/abcjs-audio.css';
+import "abcjs/abcjs-audio.css";
 
 let example2 = ["C","D","E","F","G","A","B","C,","D,","E,","F,","G,","A,","B,","C","D","E","F","G","A","B","c","d","e","f","g","a","b","c'","d'","e'","f'","g'","a'","b'"];
 var abcString="";
@@ -100,7 +100,7 @@ cf.addEventListener('click', function(){
 var fm = document.getElementById('flush_melody');
 fm.addEventListener('click', function(){
   alert("보관 비우기");
-  abcString="";
+  abcString = "";
   abcjs.renderAbc("paper", abcString);
 });
 
