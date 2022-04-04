@@ -216,7 +216,4 @@ gradle-app.setting
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
-# Other
-/dist
-
 # End of https://www.toptal.com/developers/gitignore/api/windows,node,java,gradle
