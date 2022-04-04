@@ -10,7 +10,7 @@
     "start": "parcel index.html --open",
     "build": "parcel build index.html"
   },
-  "dependencies":{
+  "dependencies": {
     "abcjs": "^6.0.2"
   },
   "devDependencies": {
@@ -19,8 +19,7 @@
     "parcel-bundler": "^1.6.1"
   },
   "keywords": [
-      "javascript",
-      "starter"
+    "javascript",
+    "starter"
   ]
- 
 }
