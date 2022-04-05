@@ -1,14 +1,20 @@
 import abcjs from "abcjs";
 import "./style.css";
 import "abcjs/abcjs-audio.css";
+import { closingSingleTagOptionEnum } from "posthtml-render";
+import { Console } from "console";
 
 let example2 = ["C","D","E","F","G","A","B","C,","D,","E,","F,","G,","A,","B,","C","D","E","F","G","A","B","c","d","e","f","g","a","b","c'","d'","e'","f'","g'","a'","b'"];
 var abcString="";
+var info = "X:1\nT: testing\nM: 4/4\nL: 1/8\n";
+var numbering=0;
 
 // var synth = new abcjs.synth.CreateSynth();
 var mkmd = document.getElementById('gacha');
 
 //img down
+//svgNode
+//svg
 var ImgDownload = function(svgNode, filename){
   const svgText = new XMLSerializer().serializeToString(svgNode);
   const svgBlob = new Blob([svgText], { type: 'image/svg+xml;charset=utf-8' });
@@ -46,8 +52,11 @@ var CursorControl = function () {
 };
 var cursorControl = new CursorControl();
 
+
+
 mkmd.addEventListener("click", function () {
-  abcString = "X:1\nT: testing\nM: 4/4\nL: 1/8\n";
+  abcString="";
+  abcString = info + abcString;
   for (var i = 0; i < 16; ++i) {
     abcString += example2[Math.floor(Math.random() * example2.length)];
   }
@@ -81,13 +90,17 @@ mkmd.addEventListener("click", function () {
 
               var url = synth.download();
               a.href = url;
-              a.download = abcString + "-fwr-recording.wav";
-              a.click(); //download
+              a.download = abcString.substring(29) + "-" + numbering + "-music.wav";
+              //"-fwr-recording.wav";
+              a.imgdownload = abcString.substring(29) + "-" + numbering +"-img.svg";
+              a.click(); //music download
 
-              console.log(visualObj[0]); //finding svgNode
-              var parent = document.getElementById("paper");
-              var children = parent.childNodes;
-              ImgDownload(children, a.download);  //img download
+              console.log(visualObj[0]); //for finding svgNode
+              var downObj = document.getElementById("paper");
+              var children = downObj.childNodes[0];
+              console.log(children);
+              ImgDownload(children, a.imgdownload);  //img download
+              ++numbering;
 
               window.URL.revokeObjectURL(url);
               document.body.removeChild(a);
@@ -100,8 +113,6 @@ mkmd.addEventListener("click", function () {
       .catch(function (reason) {
         console.log(reason);
       });
-
-      
   }
 });
 
