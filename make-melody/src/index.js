@@ -21,7 +21,7 @@ var ImgDownload = function(svgNode, filename){
   document.body.appendChild(a);
   a.click();
   
-  console.log("실행");
+  //console.log("실행");
   document.body.removeChild(a);
   URL.revokeObjectURL(svgUrl);
   
@@ -85,7 +85,7 @@ mkmd.addEventListener("click", function () {
               a.click(); //download
 
               console.log(visualObj[0]); //finding svgNode
-              // ImgDownload(,a.download);  //img download
+              // ImgDownload(??, a.download);  //img download
 
               
               window.URL.revokeObjectURL(url);
