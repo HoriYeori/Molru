@@ -85,9 +85,10 @@ mkmd.addEventListener("click", function () {
               a.click(); //download
 
               console.log(visualObj[0]); //finding svgNode
-              // ImgDownload(??, a.download);  //img download
+              var parent = document.getElementById("paper");
+              var children = parent.childNodes;
+              ImgDownload(children, a.download);  //img download
 
-              
               window.URL.revokeObjectURL(url);
               document.body.removeChild(a);
             });
