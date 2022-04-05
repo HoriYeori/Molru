@@ -5,10 +5,28 @@ import "abcjs/abcjs-audio.css";
 let example2 = ["C","D","E","F","G","A","B","C,","D,","E,","F,","G,","A,","B,","C","D","E","F","G","A","B","c","d","e","f","g","a","b","c'","d'","e'","f'","g'","a'","b'"];
 var abcString="";
 
-var synth = new abcjs.synth.CreateSynth();
-// var synthControl = new ABCJS.synth.SynthController();
-
+// var synth = new abcjs.synth.CreateSynth();
 var mkmd = document.getElementById('gacha');
+
+//img down
+var ImgDownload = function(svgNode, filename){
+  const svgText = new XMLSerializer().serializeToString(svgNode);
+  const svgBlob = new Blob([svgText], { type: 'image/svg+xml;charset=utf-8' });
+  const svgUrl = URL.createObjectURL(svgBlob);
+
+  const a = document.createElement('a');
+  a.href = svgUrl;
+  a.download = filename;
+
+  document.body.appendChild(a);
+  a.click();
+  
+  console.log("실행");
+  document.body.removeChild(a);
+  URL.revokeObjectURL(svgUrl);
+  
+}
+//img down
 
 var audioParams = { chordsOff: true };
 var CursorControl = function () {
@@ -27,8 +45,9 @@ var CursorControl = function () {
   };
 };
 var cursorControl = new CursorControl();
+
 mkmd.addEventListener("click", function () {
-  abcString = "";
+  abcString = "X:1\nT: testing\nM: 4/4\nL: 1/8\n";
   for (var i = 0; i < 16; ++i) {
     abcString += example2[Math.floor(Math.random() * example2.length)];
   }
@@ -43,7 +62,7 @@ mkmd.addEventListener("click", function () {
       displayWarp: true,
     });
 
-    var visualObj = abcjs.renderAbc("paper", abcString);
+    var visualObj = abcjs.renderAbc("paper", abcString, {dragging: true, clickListener: function(){ alert('listening!'); }});
     var synth = new abcjs.synth.CreateSynth();
 
     synth
@@ -63,7 +82,12 @@ mkmd.addEventListener("click", function () {
               var url = synth.download();
               a.href = url;
               a.download = abcString + "-fwr-recording.wav";
-              a.click();
+              a.click(); //download
+
+              console.log(visualObj[0]); //finding svgNode
+              // ImgDownload(,a.download);  //img download
+
+              
               window.URL.revokeObjectURL(url);
               document.body.removeChild(a);
             });
@@ -71,10 +95,12 @@ mkmd.addEventListener("click", function () {
           .catch(function (error) {
             console.warn("Audio problem: ", error);
           });
-      })
+        })
       .catch(function (reason) {
         console.log(reason);
       });
+
+      
   }
 });
 
@@ -84,6 +110,7 @@ cb.addEventListener('click', function(){
   for(var i=0; i<16; ++i){
     abcString+=example2[Math.floor(Math.random()*example2.length)];
   }
+  // abcString = "M: 4/4\n"+abcString;
   abcjs.renderAbc("paper", abcString);
 });
 
@@ -112,11 +139,11 @@ cm.addEventListener('click', function(){
 });
 
 //다운로드 -> 자동화 완료
-var dm = document.getElementById('download_melody');
-dm.addEventListener('click', function(){
-  //다운로드 멜로디
-  alert('file download');
-});
+// var dm = document.getElementById('download_melody');
+// dm.addEventListener('click', function(){
+//   //다운로드 멜로디
+//   alert('file download');
+// });
 
 //전체 멜로디 확인
 var am = document.getElementById('all_melody');
