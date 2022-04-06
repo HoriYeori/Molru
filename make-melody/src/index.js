@@ -1,13 +1,10 @@
 import abcjs from "abcjs";
 import "./style.css";
 import "abcjs/abcjs-audio.css";
-import { closingSingleTagOptionEnum } from "posthtml-render";
-import { Console } from "console";
 
 let example2 = ["C","D","E","F","G","A","B","C,","D,","E,","F,","G,","A,","B,","C","D","E","F","G","A","B","c","d","e","f","g","a","b","c'","d'","e'","f'","g'","a'","b'"];
 var abcString="";
 var info = "X:1\nT: testing\nM: 4/4\nL: 1/8\n";
-var numbering=0;
 
 // var synth = new abcjs.synth.CreateSynth();
 var mkmd = document.getElementById('gacha');
@@ -52,68 +49,79 @@ var CursorControl = function () {
 };
 var cursorControl = new CursorControl();
 
+function sleep(ms) {
+  const wakeUpTime = Date.now() + ms;
+  while (Date.now() < wakeUpTime) {}
+}
 
+var number=0;
+mkmd.addEventListener("click", function() {
+  // for(var k=0; k<2; k++){
+    abcString="";
+    abcString += info;
+    for (var i = 0; i < 16; ++i) {
+      abcString += example2[Math.floor(Math.random() * example2.length)];
+    }
+    console.log(abcString);
 
-mkmd.addEventListener("click", function () {
-  abcString="";
-  abcString = info + abcString;
-  for (var i = 0; i < 16; ++i) {
-    abcString += example2[Math.floor(Math.random() * example2.length)];
-  }
+    if (abcjs.synth.supportsAudio()) {
+      var synthControl = new abcjs.synth.SynthController();
+      synthControl.load("#audio", cursorControl, {
+        displayLoop: true,
+        displayRestart: true,
+        displayPlay: true,
+        displayProgress: true,
+        displayWarp: true,
+      });
 
-  if (abcjs.synth.supportsAudio()) {
-    var synthControl = new abcjs.synth.SynthController();
-    synthControl.load("#audio", cursorControl, {
-      displayLoop: true,
-      displayRestart: true,
-      displayPlay: true,
-      displayProgress: true,
-      displayWarp: true,
-    });
+      var visualObj = abcjs.renderAbc("paper", abcString, {dragging: true, clickListener: function(){ alert('listening!'); }});
+      var synth = new abcjs.synth.CreateSynth();
 
-    var visualObj = abcjs.renderAbc("paper", abcString, {dragging: true, clickListener: function(){ alert('listening!'); }});
-    var synth = new abcjs.synth.CreateSynth();
+      synth
+        .init({
+          visualObj: visualObj[0],
+        })
+        .then(function () {
+          synthControl
+            .setTune(visualObj[0], false, audioParams)
+            .then(function () {
+              //console.log("audio successfully loaded");
+              synth.prime().then(function () {
+                var a = document.createElement("a");
+                document.body.appendChild(a);
+                a.style = "display: none";
 
-    synth
-      .init({
-        visualObj: visualObj[0],
-      })
-      .then(function () {
-        synthControl
-          .setTune(visualObj[0], false, audioParams)
-          .then(function () {
-            console.log("audio successfully loaded");
-            synth.prime().then(function () {
-              var a = document.createElement("a");
-              document.body.appendChild(a);
-              a.style = "display: none";
+                var url = synth.download();
+                a.href = url;
+                a.download = abcString.substring(29) + "-" + number + "-music.wav";
+                //"-fwr-recording.wav";
+                a.imgdownload = abcString.substring(29) + "-" + number +"-img.svg";
+                a.click(); //music download
 
-              var url = synth.download();
-              a.href = url;
-              a.download = abcString.substring(29) + "-" + numbering + "-music.wav";
-              //"-fwr-recording.wav";
-              a.imgdownload = abcString.substring(29) + "-" + numbering +"-img.svg";
-              a.click(); //music download
+                //console.log(visualObj[0]); //for finding svgNode
+                var downObj = document.getElementById("paper");
+                var children = downObj.childNodes[0];
+                //console.log(children);
+                ImgDownload(children, a.imgdownload);  //img download
 
-              console.log(visualObj[0]); //for finding svgNode
-              var downObj = document.getElementById("paper");
-              var children = downObj.childNodes[0];
-              console.log(children);
-              ImgDownload(children, a.imgdownload);  //img download
-              ++numbering;
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
 
-              window.URL.revokeObjectURL(url);
-              document.body.removeChild(a);
+                // sleep(10000);
+                ++number;
+              });
+            })
+            .catch(function (error) {
+              console.warn("Audio problem: ", error);
             });
           })
-          .catch(function (error) {
-            console.warn("Audio problem: ", error);
-          });
-        })
-      .catch(function (reason) {
-        console.log(reason);
-      });
-  }
+        .catch(function (reason) {
+          console.log(reason);
+        });
+    }
+    
+  // }
+  
 });
 
 //뒤에 연결
