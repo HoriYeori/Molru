@@ -12,12 +12,49 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import WindowSharpIcon from '@mui/icons-material/WindowSharp'
 import GridOnSharpIcon from '@mui/icons-material/GridOnSharp'
 
-const ItemsListFilter = () => {
-  const [sort, setSort] = useState('')
+const ItemsListFilter = ({ items, sortByItems }) => {
+  const [sort, setSort] = useState('Recently')
 
   const handleSort = (event) => {
-    alert(event.target.value)
-    setSort(event.target.value)
+    const sortBy = event.target.value
+
+    let sortItem = items
+    switch (sortBy) {
+      case 'Recently':
+        // 발행 최신순 : date
+        sortItem = items.sort((a, b) => {
+          return b.date.replace(/[^0-9]/g, '') - a.date.replace(/[^0-9]/g, '')
+        })
+        break
+      case 'Oldest':
+        // 발행 오래된순 : date
+        sortItem = items.sort((a, b) => {
+          return a.date.replace(/[^0-9]/g, '') - b.date.replace(/[^0-9]/g, '')
+        })
+        break
+      case 'Price: Low to High':
+        // 가격 낮은순 : price
+        sortItem = items.sort((a, b) => {
+          return +a.price - +b.price
+        })
+        break
+      case 'Price: Hight to Low':
+        // 가격 높은순 : price
+        sortItem = items.sort((a, b) => {
+          return +b.price - +a.price
+        })
+        break
+      case 'Most Favorited':
+        // 좋아요 많은순 : likeCnt
+        sortItem = items.sort((a, b) => {
+          return b.likeCnt - a.likeCnt
+        })
+        break
+    }
+
+    sortByItems(sortItem) // 부모에게 전달
+
+    setSort(sortBy)
   }
 
   const [grid, setGrid] = React.useState('large')
@@ -70,12 +107,9 @@ const ItemsListFilter = () => {
         <FormControl sx={{ minWidth: '200px' }} size="small">
           <InputLabel>Sort by</InputLabel>
           <Select value={sort} onChange={handleSort} label="Sort by">
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
             {sortArray.map((value, index) => (
-              <MenuItem value={value[0]} key={index}>
-                {value[1]}
+              <MenuItem value={value} key={index}>
+                {value}
               </MenuItem>
             ))}
           </Select>
@@ -87,13 +121,13 @@ const ItemsListFilter = () => {
 
 const searchArray = ['몰루']
 const sortArray = [
-  ['recently created', 'Recently Created'],
-  ['recently sold', 'Recently Sold'],
-  ['oldest', 'Oldest'],
-  ['lowest', 'Price: Low to High'],
-  ['highest', 'Price: Hight to Low'],
-  ['most viewed', 'Most Viewed'],
-  ['most favorited', 'Most Favorited'],
+  // 'Recently Created',
+  // 'Recently Sold',
+  'Recently',
+  'Oldest',
+  'Price: Low to High',
+  'Price: Hight to Low',
+  'Most Favorited',
 ]
 
 export default ItemsListFilter

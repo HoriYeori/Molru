@@ -53,40 +53,57 @@ const ItemsList = () => {
   }, [searchParams])
 
   const search = async () => {
-    try {
-      const category = searchParams.get('category')
-      const status = searchParams.get('status')
-      const address = searchParams.get('address')
+    const category = searchParams.get('category')
+    const status = searchParams.get('status')
+    const address = searchParams.get('address')
+    const search = searchParams.get('search')
 
-      var resp = await api
-        .get(`/nft?category=${category}&status=${status}&address=${address}`)
-        .catch((err) =>
-          console.error('Error while GET /nft?category&status&address', err),
-        )
-      console.log(resp)
+    if (search) {
+      const params = { searchCondition: search }
+      api
+        .get('/nft', { params })
+        .then((res) => {
+          const items = res.data
+          console.log(items)
 
-      const items = resp.data
-      console.log('items : ', items)
-      const ssafyNftContract = new web3.eth.Contract(
-        ABI.CONTRACT_ABI.NFT_ABI,
-        process.env.REACT_APP_NFT_CA,
-      )
-
-      for (var i = 0; i < items.length; ++i) {
-        if (items[i].tokenId == null) continue
-        items[i].tokenURI = await ssafyNftContract.methods
-          .tokenURI(items[i].tokenId)
-          .call()
+          setItems(items)
+          setItemsCnt(items.length)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    } else {
+      try {
+        var resp = await api
+          .get(`/nft?category=${category}&status=${status}&address=${address}`)
           .catch((err) =>
-            // price 채우고
-            console.log('Error while ssafyNftContract tokenURI', err),
+            console.error('Error while GET /nft?category&status&address', err),
           )
-      }
+        console.log(resp)
 
-      setItems(items)
-      setItemsCnt(items.length)
-    } catch (err) {
-      console.error('Error at ItemsList > search', err)
+        const items = resp.data
+        console.log('items : ', items)
+        const ssafyNftContract = new web3.eth.Contract(
+          ABI.CONTRACT_ABI.NFT_ABI,
+          process.env.REACT_APP_NFT_CA,
+        )
+
+        for (var i = 0; i < items.length; ++i) {
+          if (items[i].tokenId == null) continue
+          items[i].tokenURI = await ssafyNftContract.methods
+            .tokenURI(items[i].tokenId)
+            .call()
+            .catch((err) =>
+              // price 채우고
+              console.log('Error while ssafyNftContract tokenURI', err),
+            )
+        }
+
+        setItems(items)
+        setItemsCnt(items.length)
+      } catch (err) {
+        console.error('Error at ItemsList > search', err)
+      }
     }
   }
 
@@ -103,10 +120,54 @@ const ItemsList = () => {
     }
   })
 
+  // const testArray = [
+  //   {
+  //     price: '10',
+  //     date: '2022-04-07 23:51:00',
+  //     likeCnt: 10,
+  //   },
+  //   {
+  //     price: '15',
+  //     date: '2022-04-07 25:51:00',
+  //     likeCnt: 0,
+  //   },
+  //   {
+  //     price: '20',
+  //     date: '2022-04-06 23:51:00',
+  //     likeCnt: 3,
+  //   },
+  //   {
+  //     price: '5',
+  //     date: '2022-03-06 23:51:00',
+  //     likeCnt: 7,
+  //   },
+  //   {
+  //     price: '12',
+  //     date: '2022-03-21 23:51:00',
+  //     likeCnt: 7,
+  //   },
+  //   {
+  //     price: '5',
+  //     date: '2021-03-06 23:51:00',
+  //     likeCnt: 15,
+  //   },
+  //   {
+  //     price: '18',
+  //     date: '2021-12-03 23:51:00',
+  //     likeCnt: 15,
+  //   },
+  // ]
+
+  const sortByItems = (sortItem) => {
+    console.log(sortItem)
+    setItems(sortItem)
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <ItemsListStyle>
-        <ItemsListFilter />
+        <ItemsListFilter items={items} sortByItems={sortByItems} />
+        {items}
         <Typography mb="32px" sx={{ height: '24px' }}>
           {itemsCnt} items
         </Typography>
@@ -136,12 +197,12 @@ const ItemsList = () => {
               >
                 <ItemCard
                   key={index}
-                  owner={value.owner}
-                  price={value.price}
-                  title={value.title}
-                  date={value.date}
-                  img={value.img}
-                  audio={value.audio}
+                  // owner={value.owner}
+                  // price={value.price}
+                  // title={value.title}
+                  // date={value.date}
+                  // img={value.img}
+                  // audio={value.audio}
                 />
               </Grid>
             ))}

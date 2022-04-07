@@ -35,6 +35,17 @@ const AccountDrawer = ({ setDrawer }) => {
 
   const { state, actions } = useContext(AppContext)
 
+  const onCopyAccount = () => {
+    navigator.clipboard
+      .writeText(state.account)
+      .then(() => {
+        alert(`복사 성공!`)
+      })
+      .catch(() => {
+        alert(`복사 실패!`)
+      })
+  }
+
   return (
     <AccountDrawerStyle role="presentation">
       {/* 로그인 ON*/}
@@ -95,6 +106,7 @@ const AccountDrawer = ({ setDrawer }) => {
                   fontWeight: 'bold',
                   color: 'rgba(0, 0, 0, 0.38)',
                 }}
+                onClick={onCopyAccount}
               >
                 {state.account.substr(0, 4) +
                   '...' +

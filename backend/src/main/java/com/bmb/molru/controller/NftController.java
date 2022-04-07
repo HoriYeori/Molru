@@ -62,4 +62,9 @@ public class NftController {
     public ResponseEntity<NftDto> updateNft(@RequestBody NftDto nftDto) {
         return nftService.updateNft(nftDto);
     }
+
+    @GetMapping(params = {"searchCondition"})
+    public ResponseEntity<List<NftDto>> searchByCondition(@RequestParam String searchCondition) {
+        return nftService.searchBarNft(searchCondition);
+    }
 }

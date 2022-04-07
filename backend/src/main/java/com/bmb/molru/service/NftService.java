@@ -158,6 +158,21 @@ public class NftService {
         }
     }
 
+    public ResponseEntity<List<NftDto>> searchBarNft(String condition) {
+        try {
+            List<Nft> filteredNft = nftQueryRepository.searchByCondition(condition);
+            List<NftDto> nftDtoList = new ArrayList<>();
+
+            for (Nft nft : filteredNft) {
+                nftDtoList.add(NftDto.convert(nft));
+            }
+
+            return new ResponseEntity<>(nftDtoList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     public ResponseEntity<List<NftDto>> findAllNftByUser(String address) {
         try {
             User user = userRepository.findByAddress(address).orElse(null);

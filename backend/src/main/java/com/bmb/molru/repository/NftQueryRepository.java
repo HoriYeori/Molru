@@ -2,6 +2,7 @@ package com.bmb.molru.repository;
 
 import com.bmb.molru.domain.Category;
 import com.bmb.molru.domain.Nft;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
@@ -27,6 +28,33 @@ public class NftQueryRepository extends QuerydslRepositorySupport {
                         eqStatus(status),
                         eqAddress(address))
                 .fetch();
+    }
+
+    public List<Nft> searchByCondition(String value) {
+        return jpaQueryFactory.selectFrom(nft)
+                .where(searchCondition(value))
+                .fetch();
+    }
+
+    private BooleanBuilder searchCondition(String value) {
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        if("".equals(value.trim())) {
+            return booleanBuilder;
+        } else {
+            booleanBuilder.or(nft.tokenTitle.contains(value))
+                    .or(nft.owner.address.contains(value))
+                    .or(nft.tokenDescription.contains(value));
+        }
+
+        return booleanBuilder;
+    }
+
+    private BooleanExpression containNftTitle(String value) {
+        if(Category.convert(value) == null) {
+            return null;
+        }
+        return nft.tokenTitle.contains(value);
     }
 
     private BooleanExpression eqCategory(String category) {
