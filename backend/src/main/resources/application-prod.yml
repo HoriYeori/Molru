@@ -6,8 +6,8 @@ spring:
     url: jdbc:mysql://j6b107.p.ssafy.io:3307/molru?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
-      username: admin
-      password: root
+      username: # Datasource username
+      password: # Datasource password
 
   jpa:
     hibernate:
