@@ -1,5 +1,5 @@
 # 멜로디 NFT 가챠 서비스
-![MOLRU](./exec/img/Molru logo.PNG)
+![MOLRU](./exec/img/Molru-logo.PNG)
 
 
 
@@ -26,7 +26,7 @@ https://www.youtube.com/watch?v=2ho_VJDKFjg&t=1s
 
 - 지갑 연결
 
-![지갑 연결](./exec/img/지갑 시연 영상.gif)
+![지갑 연결](./exec/img/지갑-시연-영상.gif)
 
 - 멜로디 NFT 가챠
 
@@ -34,7 +34,7 @@ https://www.youtube.com/watch?v=2ho_VJDKFjg&t=1s
 
 - 발급된 멜로디 재생
 
-![멜로디 재생](./exec/img/멜로디 재생.gif)
+![멜로디 재생](./exec/img/멜로디-재생.gif)
 
 - 멜로디 NFT 추가
 
@@ -68,13 +68,13 @@ https://www.youtube.com/watch?v=2ho_VJDKFjg&t=1s
 
 #### 🛒 서비스 아키텍처
 
-![서비스_아키텍처](./exec/img/서비스 아키텍처 캡처.PNG)
+![서비스_아키텍처](./exec/img/서비스-아키텍처-캡처.PNG)
 
 
 
 #### 🔧 개발 환경
 
-![기술 스택](./exec/img/기술스택 캡처.PNG)
+![기술 스택](./exec/img/기술스택-캡처.PNG)
 
 
 
@@ -90,8 +90,8 @@ https://www.youtube.com/watch?v=2ho_VJDKFjg&t=1s
 #### ✏ 요구사항 정의서
 
 - google spreadsheet를 활용하여 요구사항 정의서, 기능 명세서를 작성하였습니다.
-![요구사항 명세서](./exec/img/요구사항 명세서 캡처.PNG)
-![기능명세서](./exec/img/기능명세서 캡처.PNG)
+![요구사항 명세서](./exec/img/요구사항-명세서-캡처.PNG)
+![기능명세서](./exec/img/기능명세서-캡처.PNG)
 
 
 
@@ -99,24 +99,24 @@ https://www.youtube.com/watch?v=2ho_VJDKFjg&t=1s
 
 - Figma를 사용하여 화면을 설계하였습니다.
 
-![기술 스택](./exec/img/와이어프레임 캡처.PNG)
+![기술 스택](./exec/img/와이어프레임-캡처.PNG)
 
 
 
 #### 🧱 ERD
 
 - erdcloud를 사용하여 ERD를 설계하였습니다.
-![기술 스택](./exec/img/ERD 캡처.PNG)
+![기술 스택](./exec/img/ERD-캡처.PNG)
 
 
 
 #### 🖇 API
 
 - Postman을 활용하여 API를 설계하였습니다.
-![기술 스택](./exec/img/api 1 캡처.PNG)
-![기술 스택](./exec/img/api 2-1 캡처.PNG)
-![기술 스택](./exec/img/api 2-2 캡처.PNG)
-![기술 스택](./exec/img/api 3 캡처.PNG)
+![기술 스택](./exec/img/api-1-캡처.PNG)
+![기술 스택](./exec/img/api-2-1-캡처.PNG)
+![기술 스택](./exec/img/api-2-2-캡처.PNG)
+![기술 스택](./exec/img/api-3-캡처.PNG)
 
 
 
